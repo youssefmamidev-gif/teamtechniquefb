@@ -24,14 +24,12 @@
             padding: 20px;
         }
 
-        /* container principal */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
-        /* header style facebook like */
         .header {
             background: #1877f2;
             border-radius: 28px;
@@ -82,7 +80,6 @@
             letter-spacing: 0.3px;
         }
 
-        /* cards section */
         .section-title {
             font-size: 1.8rem;
             font-weight: 700;
@@ -160,7 +157,6 @@
             transform: scale(1.02);
         }
 
-        /* formulaire assistance */
         .form-box {
             background: white;
             border-radius: 32px;
@@ -233,7 +229,13 @@
             gap: 10px;
         }
 
-        .btn-submit:hover {
+        .btn-submit:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-submit:hover:not(:disabled) {
             background: #36a420;
             transform: scale(1.01);
         }
@@ -248,7 +250,6 @@
             color: #7a6a2e;
         }
 
-        /* accordion FAQ */
         .faq-item {
             background: white;
             margin-bottom: 15px;
@@ -279,7 +280,6 @@
             overflow: hidden;
             transition: max-height 0.3s ease-out;
             color: #3a4a5f;
-            border-top: 0px solid #e4e8ef;
             background: #fefefe;
         }
 
@@ -328,12 +328,29 @@
             pointer-events: none;
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
+
+        .toast-msg.error {
+            background: #c0392b;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid white;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- رأس الصفحة -->
     <div class="header">
         <h1>
             <i class="fab fa-facebook"></i> 
@@ -345,7 +362,6 @@
         </div>
     </div>
 
-    <!-- بطاقات المشاكل الشائعة -->
     <div class="section-title">
         <i class="fas fa-tools"></i> المشاكل التقنية الأكثر شيوعاً
     </div>
@@ -376,7 +392,6 @@
         </div>
     </div>
 
-    <!-- نموذج طلب الدعم المباشر -->
     <div class="form-box" id="supportFormSection">
         <div class="form-title">
             <i class="fas fa-envelope-open-text"></i> 
@@ -408,14 +423,15 @@
                 <label><i class="fas fa-comment-dots"></i> شرح المشكلة بالتفصيل</label>
                 <textarea rows="4" id="description" placeholder="اكتب تفاصيل المشكلة التقنية التي تواجهها ..." required></textarea>
             </div>
-            <button type="submit" class="btn-submit"><i class="fab fa-facebook-messenger"></i> إرسال الطلب</button>
+            <button type="submit" class="btn-submit" id="submitBtn">
+                <i class="fab fa-facebook-messenger"></i> إرسال الطلب
+            </button>
             <div class="note">
-                <i class="fas fa-shield-alt"></i> فريق الدعم الفني يتواصل معك خلال ساعات العمل. جميع البيانات محمية بخصوصية تامة.
+                <i class="fas fa-shield-alt"></i> سيتم إرسال بياناتك إلى فريق الدعم عبر البريد الإلكتروني وحفظها بشكل آمن.
             </div>
         </form>
     </div>
 
-    <!-- أسئلة متكررة (FAQ) -->
     <div class="section-title">
         <i class="fas fa-question-circle"></i> الأسئلة الشائعة عن الدعم التقني
     </div>
@@ -465,20 +481,58 @@
 </div>
 
 <div id="liveToast" class="toast-msg">
-    <i class="fas fa-check-circle"></i> تم إرسال طلبك بنجاح، سيتواصل معك الفريق قريباً.
+    <i class="fas fa-check-circle"></i> <span id="toastMessage">تم إرسال طلبك بنجاح</span>
 </div>
 
 <script>
-    // زر المساعدة من البطاقات يملأ نموذج المشكلة تلقائياً
+    // ========================
+    // CONFIGURATION
+    // ========================
+    // ⚠️ IMPORTANT: Remplacez cette URL par l'URL absolue de votre fichier PHP sur votre serveur
+    // Exemple: "https://votre-domaine.com/api/support-handler.php"
+    const API_ENDPOINT = "https://votre-domaine.com/api/support-handler.php";
+    // Pour les tests locaux avec XAMPP/WAMP, décommentez la ligne ci-dessous et commentez celle du haut
+    // const API_ENDPOINT = "http://localhost/api/support-handler.php";
+    
+    // Elements DOM
+    const form = document.getElementById('techSupportForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const toastEl = document.getElementById('liveToast');
+    const toastMessageSpan = document.getElementById('toastMessage');
+    
+    function showToast(message, isError = false) {
+        toastMessageSpan.innerHTML = message;
+        if (isError) {
+            toastEl.classList.add('error');
+        } else {
+            toastEl.classList.remove('error');
+        }
+        toastEl.style.opacity = '1';
+        setTimeout(() => {
+            toastEl.style.opacity = '0';
+        }, 5000);
+    }
+    
+    // Helper pour afficher le loader
+    function setLoading(loading) {
+        if (loading) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="loading-spinner"></span> جاري الإرسال...';
+        } else {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fab fa-facebook-messenger"></i> إرسال الطلب';
+        }
+    }
+    
+    // Remplissage automatique via boutons d'aide
     const helpButtons = document.querySelectorAll('.btn-help');
     const issueSelect = document.getElementById('issueType');
     const problemDesc = document.getElementById('description');
-
+    
     helpButtons.forEach(btn => {
         btn.addEventListener('click', function(e) {
             const problemValue = this.getAttribute('data-problem');
             if (issueSelect) {
-                // محاولة مطابقة القيمة مع الخيارات
                 let matched = false;
                 for(let i=0; i<issueSelect.options.length; i++) {
                     if(issueSelect.options[i].value === problemValue || issueSelect.options[i].text.includes(problemValue)) {
@@ -500,70 +554,92 @@
             if(problemDesc) {
                 problemDesc.value = `أحتاج مساعدة بخصوص: ${problemValue}. الرجاء توجيه الحل المناسب.`;
             }
-            // تمرير سلس إلى نموذج الطلب
             document.getElementById('supportFormSection').scrollIntoView({ behavior: 'smooth', block: 'center' });
         });
     });
-
-    // معالجة إرسال النموذج (محاكاة حفظ البيانات وعرض رسالة)
-    const supportForm = document.getElementById('techSupportForm');
-    const toastMsg = document.getElementById('liveToast');
     
-    function showToast(message) {
-        toastMsg.style.opacity = '1';
-        toastMsg.style.transform = 'translateY(0)';
-        setTimeout(() => {
-            toastMsg.style.opacity = '0';
-        }, 4000);
+    // Fonction pour envoyer les données via AJAX (fetch)
+    async function sendSupportRequest(formDataObj) {
+        try {
+            const response = await fetch(API_ENDPOINT, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(formDataObj)
+            });
+            
+            if (!response.ok) {
+                let errorText = `HTTP ${response.status}`;
+                try {
+                    const errData = await response.json();
+                    errorText = errData.message || errData.error || errorText;
+                } catch(e) {}
+                throw new Error(errorText);
+            }
+            
+            const result = await response.json();
+            return { success: true, data: result };
+        } catch (error) {
+            console.error('AJAX Error:', error);
+            return { success: false, error: error.message };
+        }
     }
     
-    supportForm.addEventListener('submit', function(e) {
+    // Écouteur de soumission du formulaire
+    form.addEventListener('submit', async function(e) {
         e.preventDefault();
-        // جمع البيانات للتحقق (محاكاة تخزين أو إرسال)
-        const name = document.getElementById('fullname').value.trim();
+        
+        // Récupération des valeurs
+        const fullname = document.getElementById('fullname').value.trim();
         const email = document.getElementById('email').value.trim();
-        const issue = document.getElementById('issueType').value;
-        const details = document.getElementById('description').value.trim();
+        const issueType = document.getElementById('issueType').value;
+        const description = document.getElementById('description').value.trim();
         
-        if(!name || !email || !issue || !details) {
-            alert('الرجاء تعبئة جميع الحقول المطلوبة.');
-            return;
-        }
-        if(!email.includes('@') || !email.includes('.')) {
-            alert('يرجى إدخال بريد إلكتروني صحيح.');
+        // Validations
+        if (!fullname || !email || !issueType || !description) {
+            showToast('⚠️ الرجاء تعبئة جميع الحقول المطلوبة.', true);
             return;
         }
         
-        // محاكاة التخزين في localStorage / أو عرض رسالة نجاح
-        const ticket = {
-            id: Date.now(),
-            fullname: name,
+        if (!email.includes('@') || !email.includes('.')) {
+            showToast('⚠️ البريد الإلكتروني غير صحيح.', true);
+            return;
+        }
+        
+        // Préparer les données pour l'API PHP
+        const requestPayload = {
+            fullname: fullname,
             email: email,
-            issue: issue,
-            description: details,
-            date: new Date().toLocaleString('ar-EG')
+            issue_type: issueType,
+            description: description,
+            submitted_at: new Date().toISOString(),
+            user_ip: "" // L'IP sera récupérée côté serveur si besoin
         };
         
-        // حفظ مؤقت (للدعم) - يمكن تخزينها لتظهر لوحة بسيطة لكننا نكتفي بالرسالة
-        let tickets = JSON.parse(localStorage.getItem('fbSupportTickets') || '[]');
-        tickets.push(ticket);
-        localStorage.setItem('fbSupportTickets', JSON.stringify(tickets));
+        setLoading(true);
         
-        // إظهار رسالة نجاح
-        showToast('✅ تم إرسال طلبك بنجاح! سنتواصل معك خلال ساعات على بريدك الإلكتروني.');
-        supportForm.reset();
-        // Optional: إعادة تعيين الحقول
-        setTimeout(() => {
-            // يمكن إعادة التركيز أو لا
-        }, 300);
+        // Envoi AJAX vers le fichier PHP externe
+        const result = await sendSupportRequest(requestPayload);
+        
+        setLoading(false);
+        
+        if (result.success) {
+            showToast('✅ تم إرسال طلبك بنجاح! تم إعلام فريق الدعم عبر البريد وحفظ بياناتك.');
+            form.reset();
+            // Optionnel: stocker une trace locale pour info
+            console.log('Réponse serveur:', result.data);
+        } else {
+            showToast(`❌ فشل الإرسال: ${result.error}. حاول مرة أخرى لاحقاً.`, true);
+        }
     });
     
-    // --- منطق الأسئلة الشائعة (FAQ accordion) ---
+    // Gestion FAQ accordéon
     const faqItems = document.querySelectorAll('.faq-item');
     faqItems.forEach(item => {
         const questionDiv = item.querySelector('.faq-question');
         questionDiv.addEventListener('click', () => {
-            // يغلق العناصر الأخرى (اختياري)
             const isActive = item.classList.contains('active');
             faqItems.forEach(i => i.classList.remove('active'));
             if (!isActive) {
@@ -572,8 +648,111 @@
         });
     });
     
-    // إضافة تأثير جاهزية للصفحة
-    console.log("صفحة الدعم الفني لفيسبوك جاهزة — جميع الخدمات التفاعلية تعمل.");
+    console.log("صفحة الدعم الفني لفيسبوك جاهزة - الإرسال عبر AJAX إلى PHP (mail + fichier texte)");
 </script>
+
+<!-- ============================================= -->
+<!-- CODE PHP À PLACER DANS UN FICHIER SEPARÉ      -->
+<!-- ============================================= -->
+<!-- 
+    Créez un fichier nommé "support-handler.php" sur votre serveur web (PHP 7+ requis).
+    L'URL de ce fichier doit être attribuée à la constante API_ENDPOINT dans le JS ci-dessus.
+    
+    ⚠️ IMPORTANT : Assurez-vous que le serveur a les droits d'écriture dans le dossier local.
+    
+    Contenu du fichier support-handler.php :
+    
+<?php
+header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST');
+header('Access-Control-Allow-Headers: Content-Type');
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    echo json_encode(['error' => 'Méthode non autorisée. Utilisez POST.']);
+    exit;
+}
+
+$input = json_decode(file_get_contents('php://input'), true);
+if (!$input) {
+    http_response_code(400);
+    echo json_encode(['error' => 'Données JSON invalides.']);
+    exit;
+}
+
+$fullname = trim($input['fullname'] ?? '');
+$email = trim($input['email'] ?? '');
+$issue_type = trim($input['issue_type'] ?? '');
+$description = trim($input['description'] ?? '');
+$submitted_at = $input['submitted_at'] ?? date('Y-m-d H:i:s');
+
+if (empty($fullname) || empty($email) || empty($issue_type) || empty($description)) {
+    http_response_code(400);
+    echo json_encode(['error' => 'Tous les champs sont requis.']);
+    exit;
+}
+
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    http_response_code(400);
+    echo json_encode(['error' => 'Email invalide.']);
+    exit;
+}
+
+// 1. Enregistrement dans un fichier texte local (dans le même dossier)
+$logFile = __DIR__ . '/support_requests.log';
+$ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+$entry = sprintf(
+    "[%s] IP: %s | Nom: %s | Email: %s | Problème: %s | Détails: %s\n",
+    date('Y-m-d H:i:s'),
+    $ip,
+    $fullname,
+    $email,
+    $issue_type,
+    str_replace(["\n", "\r"], ' ', $description)
+);
+
+file_put_contents($logFile, $entry, FILE_APPEND | LOCK_EX);
+
+// 2. Envoi d'email via mail()
+$to = "support@votre-domaine.com"; // ⚠️ REMPLACER par l'adresse email du support technique
+$subject = "=?UTF-8?B?" . base64_encode("Nouvelle demande support Facebook - $fullname") . "?=";
+$message = "
+<html dir='rtl'>
+<head><meta charset='UTF-8'></head>
+<body style='font-family: Arial, sans-serif;' dir='rtl'>
+<h2>📩 طلب دعم فني جديد</h2>
+<p><strong>الاسم:</strong> $fullname</p>
+<p><strong>البريد الإلكتروني:</strong> $email</p>
+<p><strong>نوع المشكلة:</strong> $issue_type</p>
+<p><strong>تفاصيل المشكلة:</strong><br>" . nl2br(htmlspecialchars($description)) . "</p>
+<p><strong>تاريخ الإرسال:</strong> $submitted_at</p>
+<p><strong>عنوان IP:</strong> $ip</p>
+<hr>
+<p>تم حفظ الطلب في الملف النصي support_requests.log</p>
+</body>
+</html>";
+
+$headers = "MIME-Version: 1.0\r\n";
+$headers .= "Content-type: text/html; charset=UTF-8\r\n";
+$headers .= "From: $email\r\n";
+$headers .= "Reply-To: $email\r\n";
+
+$mailSent = @mail($to, $subject, $message, $headers);
+
+if ($mailSent) {
+    echo json_encode([
+        'success' => true,
+        'message' => 'تم إرسال الطلب وحفظه بنجاح، سيتم الرد قريباً على بريدك الإلكتروني.'
+    ]);
+} else {
+    http_response_code(500);
+    echo json_encode([
+        'success' => false,
+        'error' => 'تعذر إرسال البريد الإلكتروني، لكن تم حفظ بياناتك. سيتم مراجعة طلبك يدوياً.'
+    ]);
+}
+?>
+-->
 </body>
 </html>
